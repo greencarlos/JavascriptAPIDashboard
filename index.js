@@ -75,24 +75,25 @@ async function getExchangeRates() {
   const output = document.querySelector("#currency-output");
   const coreFour = ["usd", "gbp", "aud", "cad"];
 
-  const currUrl =
+  const countryUrl =
     "https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies.json";
   const priceUrl =
     "https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies/btc.json";
 
-  const req = await fetch(currUrl);
+  const req = await fetch(countryUrl);
   const request = await fetch(priceUrl);
 
-  const curr = await req.json();
+  const country = await req.json();
   const prices = await request.json();
 
-  AddUrl(currUrl);
+  AddUrl(countryUrl);
   AddUrl(priceUrl);
   output.innerHTML = "";
 
   for (let price of coreFour) {
     const p = document.createElement("p");
-    p.innerText += curr[`${price}`] + " : " + prices.btc[`${price}`];
+    p.innerText +=
+      country[`${price}`] + " : " + Math.floor(prices.btc[`${price}`]);
     output.appendChild(p);
   }
 }
